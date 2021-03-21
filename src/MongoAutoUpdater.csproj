@@ -4,6 +4,10 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>RedZoneDevelopment.MongoAutoUpdater</AssemblyName>
     <RootNamespace>RedZoneDevelopment.MongoAutoUpdater</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>6d616e75</Authors>
+    <Company>-</Company>
+    <Product>-</Product>
   </PropertyGroup>
 
   <ItemGroup>
