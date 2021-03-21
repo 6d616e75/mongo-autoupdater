@@ -28,5 +28,5 @@ jobs:
     - name: Publish
       uses: brandedoutcast/publish-nuget@v2.5.2  
       with:
-        PROJECT_FILE_PATH: MongoAutoUpdater.csproj
+        PROJECT_FILE_PATH: src/MongoAutoUpdater.csproj
         NUGET_KEY: ${{secrets.NUGET_TOKEN}} 
