@@ -6,9 +6,9 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RedZoneDevelopment.MongoDbInitializer.Interface;
+using RedZoneDevelopment.MongoAutoUpdater.Interface;
 
-namespace RedZoneDevelopment.MongoDbInitializer
+namespace RedZoneDevelopment.MongoAutoUpdater
 {
     /// <summary>
     /// Controls the data collection operations.

@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace RedZoneDevelopment.MongoDbInitializer.Interface
+namespace RedZoneDevelopment.MongoAutoUpdater.Interface
 {
     public interface ICustomUpdateOperation
     {

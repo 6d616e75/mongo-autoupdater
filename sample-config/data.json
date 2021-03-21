@@ -1,0 +1,27 @@
+{
+  "version": "1.0.4", 
+  "customVersionCollectionName": "",
+  "data": [
+    {
+      "collectionName": "Student",
+      "typeName": "Business.Repository.Data.DtoStudent",
+      "keys": ["firstName", "lastName"],
+      "items": [        
+        {"firstName": "John", "lastName": "Dow", "className": "f"},
+        {"firstName": "Egon", "lastName": "Jones", "className": "a"},
+        {"firstName": "Margret", "lastName": "Simpson", "className": "e"},
+        {"firstName": "Terry", "lastName": "Fletscher", "className": "a"}
+      ]
+    },
+    {
+      "collectionName": "Room",
+      "typeName": "Business.Repository.Data.DtoRoom",
+      "keys": ["roomNumber"],
+      "items": [        
+        {"roomNumber": 101, "floor": 1, "size": 20},
+        {"roomNumber": 102, "floor": 1, "size": 30},
+        {"roomNumber": 201, "floor": 2, "size": 15}
+      ]
+    }
+  ]  
+}

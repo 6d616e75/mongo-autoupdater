@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Threading.Tasks;
-using RedZoneDevelopment.MongoDbInitializer.Interface;
+using RedZoneDevelopment.MongoAutoUpdater.Interface;
 
-namespace RedZoneDevelopment.MongoDbInitializer
+namespace RedZoneDevelopment.MongoAutoUpdater
 {
     /// <summary>
     /// Default implementation of a update operation controller.
