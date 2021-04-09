@@ -1,12 +1,15 @@
-﻿using KellermanSoftware.CompareNetObjects;
+using KellermanSoftware.CompareNetObjects;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
+using RedZoneDevelopment.MongoAutoUpdater.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
-using RedZoneDevelopment.MongoAutoUpdater.Interface;
 
 namespace RedZoneDevelopment.MongoAutoUpdater
 {
@@ -23,6 +26,7 @@ namespace RedZoneDevelopment.MongoAutoUpdater
         private readonly CompareLogic _comparer;
         private readonly ICustomUpdateOperation _updateOperationHandler;
         private readonly ILogger _logger;
+        private string _idPropertyName;
         #endregion
 
         #region // Constructor
@@ -40,6 +44,9 @@ namespace RedZoneDevelopment.MongoAutoUpdater
             _collection = collection;
             _keys = data["keys"].Values<string>().ToArray();
             _logger.LogDebug(_keys.Length + " key fields were found.");
+
+            _idPropertyName = GetIdPropertyName();
+            _logger.LogDebug("Name of id property: " + _idPropertyName);
 
             _items = new Dictionary<T, JToken>();
             foreach (var item in data["items"])
@@ -114,7 +121,7 @@ namespace RedZoneDevelopment.MongoAutoUpdater
                         {
                             _logger.LogDebug(updateOperations.Count + " document element updates found.");
                             // Updates only the changed values
-                            await _collection.UpdateOneAsync(Builders<T>.Filter.Eq("id", GetValueByPropertyName(dataResult, "id")), updateSource.Combine(updateOperations));
+                            await _collection.UpdateOneAsync(Builders<T>.Filter.Eq(_idPropertyName, GetValueByPropertyName(dataResult, _idPropertyName)), updateSource.Combine(updateOperations));
                             _logger.LogDebug("Element update completed at database.");
                         }else
                         {
@@ -228,6 +235,24 @@ namespace RedZoneDevelopment.MongoAutoUpdater
             {
                 return GetValueByPropertyName(value, propertyPath.Replace(propertyNames[0] + ".", ""));
             }
+        }
+
+        /// <summary>
+        /// Gets the name of the id property.
+        /// </summary>
+        /// <returns>Returns the name of the id property.</returns>
+        private string GetIdPropertyName()
+        {
+            _logger.LogDebug("Try to get the id property name of the type " + typeof(T).ToString());
+            var typeProperties = typeof(T).GetProperties();
+            foreach (var property in typeProperties)
+            {
+                if (property.GetCustomAttribute<BsonIdAttribute>() != null)
+                    return property.Name;
+            }
+
+            _logger.LogError("Could not find the id field of type " + typeof(T).ToString());
+            throw new ApplicationException(typeof(T).ToString() + " has no BsonId attribute decoration. Please add the BsonId attribute to the id property.");
         }
         #endregion
     }
