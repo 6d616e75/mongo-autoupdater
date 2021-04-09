@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Check if data item type is public
+- Bson Id detection
 - Changelog
 
 ## [1.0.1]
