@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.3]
+
+### Added
+
+- Bson Id detection
+
 ## [1.0.2]
 
 ### Added
