@@ -107,6 +107,11 @@ namespace RedZoneDevelopment.MongoAutoUpdater
             _logger.LogDebug("Name of type: " + typeName);
 
             Type genericeType = GetTypeByName(typeName);
+
+            if(!genericeType.IsPublic) {
+                _logger.LogError(typeName +" is not public. Only public classes are supported.");
+                throw new ApplicationException(typeName +" is not public. Only public classes are supported.");
+            }
             
             _logger.LogDebug("Collection at data context found.");
             var operationType = typeof(GenericCollectionOperator<>);
