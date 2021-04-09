@@ -88,7 +88,6 @@ namespace RedZoneDevelopment.MongoAutoUpdater
         /// </summary>
         /// <typeparam name="T">Type of data collection base element</typeparam>
         /// <param name="instance">Reference to GenericCollectionOperator</param>
-        /// <returns>Returns the handling task.</returns>
         private async Task UpdateCollectionAsync<T>(GenericCollectionOperator<T> instance)
         {
             await instance.CreateOrUpdateAsync();
@@ -208,7 +207,6 @@ namespace RedZoneDevelopment.MongoAutoUpdater
         /// </summary>
         /// <param name="configDocumentVersionValue">Value of version</param>
         /// <param name="configCollectionName">Name of configuration database collection</param>
-        /// <returns>Returns the update handling task.</returns>
         private async Task UpdateConfigVersionAsync(string configDocumentVersionValue, string configCollectionName)
         {
             var configCollection = _databaseContext.GetCollection<DtoDbInitConfig>(configCollectionName);

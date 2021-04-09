@@ -51,7 +51,6 @@ namespace RedZoneDevelopment.MongoAutoUpdater
         /// Starts the database initialization operations.
         /// </summary>
         /// <param name="pathToConfigFile">Path to the json configuration file</param>
-        /// <returns>Returns the handling task.</returns>
         public async Task RunAsync(string pathToConfigFile)
         {
             if (string.IsNullOrEmpty(pathToConfigFile))
@@ -80,7 +79,6 @@ namespace RedZoneDevelopment.MongoAutoUpdater
         /// Starts the database initialization operations.
         /// </summary>
         /// <param name="configuration">Json configuration of the database elements</param>
-        /// <returns>Returns the handling task.</returns>
         public async Task RunAsync(JObject configuration)
         {
             if (configuration == null)

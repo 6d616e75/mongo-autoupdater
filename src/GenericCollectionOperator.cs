@@ -56,7 +56,6 @@ namespace RedZoneDevelopment.MongoAutoUpdater
         /// <summary>
         /// Adds or updates the items at the data store. 
         /// </summary>
-        /// <returns>Returns the handling task.</returns>
         public async Task CreateOrUpdateAsync()
         {
             _logger.LogDebug("Start database update of type " + typeof(T).ToString());
@@ -74,7 +73,6 @@ namespace RedZoneDevelopment.MongoAutoUpdater
         /// </summary>
         /// <param name="data">Data element</param>
         /// <param name="configSource">Configuration json content</param>
-        /// <returns>Returns the handling task.</returns>
         private async Task CreateOrUpdateItemAsync(T data, JToken configSource)
         {
             _logger.LogDebug("Begin element create/update operations.");
@@ -217,11 +215,19 @@ namespace RedZoneDevelopment.MongoAutoUpdater
         /// Gets property value by name.
         /// </summary>
         /// <param name="data">Instance of element</param>
-        /// <param name="propertyName">Name of property</param>
+        /// <param name="propertyPath">Path to the property</param>
         /// <returns>Returns the value of the requested object.</returns>
-        private object GetValueByPropertyName(T data, string propertyName)
+        private object GetValueByPropertyName(object data, string propertyPath)
         {
-            return typeof(T).GetProperty(propertyName).GetValue(data);
+            string[] propertyNames = propertyPath.Split('.');
+            object value = data.GetType().GetProperty(propertyNames[0]).GetValue(data, null);
+
+            if (propertyNames.Length == 1 || value == null)
+                return value;
+            else
+            {
+                return GetValueByPropertyName(value, propertyPath.Replace(propertyNames[0] + ".", ""));
+            }
         }
         #endregion
     }

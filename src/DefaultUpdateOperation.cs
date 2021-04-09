@@ -41,7 +41,6 @@ namespace RedZoneDevelopment.MongoAutoUpdater
         /// <param name="currentType">Current type of element which will be updated.</param>
         /// <param name="data">Element which was created or updated.</param>
         /// <param name="configSource">Configuration json content</param>
-        /// <returns>Returns the handling task.</returns>
         public async Task ItemProcessingBeginEventAsyncEndEventAsync(Type currentType, object data, JToken configSource)
         {}
 
