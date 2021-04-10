@@ -1,4 +1,3 @@
-using KellermanSoftware.CompareNetObjects;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -23,7 +22,6 @@ namespace RedZoneDevelopment.MongoAutoUpdater
         private readonly IMongoCollection<T> _collection;
         private readonly string[] _keys;
         private readonly Dictionary<T, JToken> _items;
-        private readonly CompareLogic _comparer;
         private readonly ICustomUpdateOperation _updateOperationHandler;
         private readonly ILogger _logger;
         private string _idPropertyName;
@@ -54,8 +52,6 @@ namespace RedZoneDevelopment.MongoAutoUpdater
                 _items.Add(item.ToObject<T>(), item);
             }
             _logger.LogDebug(_items.Count + " items were found.");
-
-            _comparer = new CompareLogic();
         }
         #endregion
 
@@ -191,14 +187,29 @@ namespace RedZoneDevelopment.MongoAutoUpdater
             object sourceValue = propertyType.GetValue(source);
             object destinationValue = propertyType.GetValue(destination);
 
-            if (!_comparer.Compare(sourceValue, destinationValue).AreEqual)
+            if (sourceValue == null && destinationValue == null)
+                return false;
+
+            if (sourceValue == null && destinationValue != null
+                || destinationValue == null && sourceValue != null)
             {
                 _logger.LogDebug("Value of property " + propertyName + " is different.");
-                update = updateSource.Set(propertyName, destinationValue);                
+                update = updateSource.Set(propertyName, destinationValue);
                 return true;
             }
-            else
-                return false;
+
+            // Compare two elements via json conversation
+            var sourceToken = JToken.FromObject(sourceValue);
+            var destinationToken = JToken.FromObject(destinationValue);
+
+            if(!JToken.DeepEquals(sourceToken, destinationToken))
+            {
+                _logger.LogDebug("Value of property " + propertyName + " is different.");
+                update = updateSource.Set(propertyName, destinationValue);
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>

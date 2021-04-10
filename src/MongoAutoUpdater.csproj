@@ -8,18 +8,18 @@
     <Authors>6d616e75</Authors>
     <Company>-</Company>
     <Product>-</Product>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/6d616e75/mongo-autoupdater/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/6d616e75/mongo-autoupdater/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
     <Description>Creates/Updates collection items at a MongoDB by json file.</Description>
     <PackageTags>mongodb mongo</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CompareNETObjects" Version="4.72.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     <PackageReference Include="MongoDB.Bson" Version="2.12.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.12.0" />

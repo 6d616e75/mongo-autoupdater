@@ -73,7 +73,7 @@ namespace RedZoneDevelopment.MongoAutoUpdater
                 }
                 // Updates version at database
                 await UpdateConfigVersionAsync(versionValue, versionCollectionName);
-                _logger.LogDebug("Version update at datanase completed.");
+                _logger.LogDebug("Version update at database completed.");
             }
             else
             {
